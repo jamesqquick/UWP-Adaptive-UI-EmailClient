@@ -1,0 +1,36 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AdaptiveUI_EmailClient">
+
+
+    <DataTemplate x:Key="PhoneItemTemplate">
+        <StackPanel Orientation="Vertical" >
+            <TextBlock  Text="{Binding Sender}" FontSize="18"/>
+            <TextBlock Text="{Binding Subject}" FontSize="14"/>
+            <TextBlock Text="{Binding Date}" FontSize="12"/>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="TabletItemTemplate">
+        <StackPanel Orientation="Vertical" >
+            <TextBlock  Text="{Binding Sender}" FontSize="18"/>
+            <TextBlock Text="{Binding Subject}" FontSize="14"/>
+            <StackPanel Orientation="Horizontal" x:Name="listTimeDate">
+                <TextBlock  Text="{Binding ShortBody}" FontSize="12"/>
+                <TextBlock Text="{Binding Date}" FontSize="12"/>
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DesktopItemTemplate">
+        <StackPanel Orientation="Vertical" >
+            <TextBlock  Text="{Binding Sender}" FontSize="18"/>
+            <TextBlock Text="{Binding Subject}" FontSize="14"/>
+            <StackPanel Orientation="Horizontal" x:Name="listTimeDate">
+                <TextBlock  Text="{Binding ShortBody}" FontSize="12"/>
+                <TextBlock Text="{Binding Date}" FontSize="12"/>
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

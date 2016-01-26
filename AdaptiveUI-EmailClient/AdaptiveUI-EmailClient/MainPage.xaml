@@ -1,0 +1,218 @@
+﻿<Page
+    x:Class="AdaptiveUI_EmailClient.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AdaptiveUI_EmailClient"
+    xmlns:localData="using:AdaptiveUI_EmailClient.Data"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+
+    <SplitView x:Name="MySplitView" DisplayMode="CompactInline" IsPaneOpen="True" 
+               CompactPaneLength="50" OpenPaneLength="150" >
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+<!--Visual State for Small Phones-->
+                <VisualState x:Name="SmallPhone" >
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="EmailList.ItemTemplate" Value="{StaticResource PhoneItemTemplate}"/>
+                        <!--Hide the ListGrid and expand ColumnSpan for DetailsStack-->
+                        <Setter Target="MySplitView.IsPaneOpen" Value="False"/>
+                        <Setter Target="MySplitView.DisplayMode" Value="CompactOverlay"/>
+                        <Setter Target="ListGrid.Visibility" Value="Collapsed"/>
+                        <Setter Target="ListGrid.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="DetailsStack.(Grid.Column)" Value="0"/>
+                        <Setter Target="DetailsStack.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="BackButton.Visibility" Value="Visible"/>
+                        <!--Hide Menu Button Text when in Small Phone State-->
+                        <Setter Target="ReplyButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="ReplyAllButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="DeleteButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="FlagButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="MoveButton.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+<!--Visual State for Regular Phones-->
+                <VisualState x:Name="Phone" >
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="650"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="EmailList.ItemTemplate" Value="{StaticResource PhoneItemTemplate}"/>
+                        <Setter Target="MySplitView.IsPaneOpen" Value="False"/>
+                        <Setter Target="MySplitView.DisplayMode" Value="CompactOverlay"/>
+                        <Setter Target="ListGrid.Visibility" Value="Collapsed"/>
+                        <Setter Target="ListGrid.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="DetailsStack.(Grid.Column)" Value="0"/>
+                        <Setter Target="DetailsStack.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="BackButton.Visibility" Value="Visible"/>
+                        <!--Reveal Button Text when GREATER than Small Phone State-->
+                        <Setter Target="ReplyButton.Visibility" Value="Visible"/>
+                        <Setter Target="ReplyAllButton.Visibility" Value="Visible"/>
+                        <Setter Target="DeleteButton.Visibility" Value="Visible"/>
+                        <Setter Target="FlagButton.Visibility" Value="Visible"/>
+                        <Setter Target="MoveButton.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+<!--Visual State for Small Tablet/Laptop Devices-->
+                <VisualState x:Name="Small">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1000"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="EmailList.ItemTemplate" Value="{StaticResource PhoneItemTemplate}"/>
+                        <Setter Target="MySplitView.IsPaneOpen" Value="False"/>
+                        <Setter Target="MySplitView.DisplayMode" Value="CompactInline"/>
+                        <Setter Target="ListGrid.Visibility" Value="Visible"/>
+                        <Setter Target="ListGrid.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="DetailsStack.(Grid.Column)" Value="1"/>
+                        <Setter Target="DetailsStack.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="BackButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="DetailsStack.Visibility" Value="Visible"/>
+                        <!--Reveal Button Text when GREATER than Small Phone State-->
+                        <Setter Target="ReplyButton.Visibility" Value="Visible"/>
+                        <Setter Target="ReplyAllButton.Visibility" Value="Visible"/>
+                        <Setter Target="DeleteButton.Visibility" Value="Visible"/>
+                        <Setter Target="FlagButton.Visibility" Value="Visible"/>
+                        <Setter Target="MoveButton.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+<!--Visual State for Medium Tablet/Laptop Devices-->
+                <VisualState x:Name="Medium">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1150"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="EmailList.ItemTemplate" Value="{StaticResource TabletItemTemplate}"/>
+                        <Setter Target="MySplitView.IsPaneOpen" Value="True"/>
+                        <Setter Target="MySplitView.DisplayMode" Value="CompactInline"/>
+                        <Setter Target="ListGrid.Visibility" Value="Visible"/>
+                        <Setter Target="ListGrid.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="DetailsStack.(Grid.Column)" Value="1"/>
+                        <Setter Target="DetailsStack.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="BackButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="DetailsStack.Visibility" Value="Visible"/>
+                        <!--Reveal Button Text when GREATER than Small Phone State-->
+                        <Setter Target="ReplyButton.Visibility" Value="Visible"/>
+                        <Setter Target="ReplyAllButton.Visibility" Value="Visible"/>
+                        <Setter Target="DeleteButton.Visibility" Value="Visible"/>
+                        <Setter Target="FlagButton.Visibility" Value="Visible"/>
+                        <Setter Target="MoveButton.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+<!--Visual State for Large Tablet/Laptop Devices-->
+                <VisualState x:Name="Large">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1500"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="EmailList.ItemTemplate" Value="{StaticResource DesktopItemTemplate}"/>
+                        <Setter Target="MySplitView.IsPaneOpen" Value="True"/>
+                        <Setter Target="MySplitView.DisplayMode" Value="CompactInline"/>
+                        <Setter Target="DetailsStack.Visibility" Value="Visible"/>
+                        <Setter Target="DetailsStack.(Grid.Column)" Value="1"/>
+                        <Setter Target="DetailsStack.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="BackButton.Visibility" Value="Collapsed"/>
+                        <!--Reveal Button Text when GREATER than Small Phone State-->
+                        <Setter Target="ReplyButton.Visibility" Value="Visible"/>
+                        <Setter Target="ReplyAllButton.Visibility" Value="Visible"/>
+                        <Setter Target="DeleteButton.Visibility" Value="Visible"/>
+                        <Setter Target="FlagButton.Visibility" Value="Visible"/>
+                        <Setter Target="MoveButton.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+<!--SplitView Pane Menu Items-->
+        <SplitView.Pane>
+            <StackPanel Background="Gray">
+                <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;"
+                    Width="50" Height="50" Background="Transparent" Click="HamburgerButton_Click"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="MenuButton1" FontFamily="Segoe MDL2 Assets" Content="&#xE715;"
+                    Width="50" Height="50" Background="Transparent" Click="MenuButton1_Click"/>
+                    <TextBlock Text="Inbox" FontSize="18" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="MenuButton2" FontFamily="Segoe MDL2 Assets" Content="&#xE74D;"
+                        Width="50" Height="50" Background="Transparent" Click="MenuButton2_Click"/>
+                    <TextBlock Text="Trash" FontSize="18" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="MenuButton3" FontFamily="Segoe MDL2 Assets" Content="&#xE734;" 
+                        Width="50" Height="50" Background="Transparent" Click="MenuButton3_Click"/>
+                    <TextBlock Text="Starred" FontSize="18" VerticalAlignment="Center" />
+                </StackPanel>
+            </StackPanel>
+        </SplitView.Pane>
+<!--Content for SplitView-->
+        <SplitView.Content>
+            <Grid x:Name="MainGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="ListColumn" Width="*"/>
+                    <ColumnDefinition x:Name="DetailColumn" Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.DataContext>
+                    <localData:DummyFolder/>
+                </Grid.DataContext>
+<!--Grid to display list of emails in first column of MainGrid-->
+                <Grid x:Name="ListGrid" Grid.RowSpan="2" Grid.Column="0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="6*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="FolderName" Text="{Binding Name}"  FontSize="24" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <ListView  x:Name="EmailList" Grid.Row="1" Grid.Column="0" Margin="10,0,10,10"
+                          ItemsSource="{Binding Emails}" ItemTemplate="{StaticResource DesktopItemTemplate}" 
+                               SelectionChanged="EmailList_SelectionChanged">
+                    </ListView>
+                </Grid>
+<!--StackPanel to display details of individual email in second column of MainGrid-->
+                <StackPanel  x:Name="DetailsStack" Grid.RowSpan="2" Grid.Column="1" Margin="30,0,30,30" 
+                            DataContext="{Binding SelectedItem, ElementName=EmailList}">
+<!--Menu Items for email management-->
+                    <StackPanel x:Name="ItemMenuStack" Orientation="Horizontal" >
+                            <Button x:Name="BackButton" FontFamily="Segoe MDL2 Assets" Content="&#xE72B;"
+                    Width="50" Height="50" Background="Transparent" Click="BackButton_Click" Margin="0,0,25,0"/>
+                            <TextBlock x:Name="ReplyButton" Text="Reply" VerticalAlignment="Center"/>
+                            <Button FontFamily="Segoe MDL2 Assets" Content="&#xE8CA;"
+                    Width="50" Height="50" Background="Transparent"/>
+                            <TextBlock x:Name="ReplyAllButton" Text="Reply All" VerticalAlignment="Center"/>
+                            <Button FontFamily="Segoe MDL2 Assets" Content="&#xE8C2;"
+                    Width="50" Height="50" Background="Transparent"/>
+                            <TextBlock x:Name="DeleteButton" Text="Delete" VerticalAlignment="Center"/>
+                            <Button FontFamily="Segoe MDL2 Assets" Content="&#xE74D;"
+                    Width="50" Height="50" Background="Transparent"/>                 
+                        <TextBlock x:Name="FlagButton" Text="Set Flag" VerticalAlignment="Center"/>
+                        <Button FontFamily="Segoe MDL2 Assets" Content="&#xE7C1;"
+                    Width="50" Height="50" Background="Transparent"/>
+                        <TextBlock x:Name="MoveButton" Text="Move" VerticalAlignment="Center"/>
+                        <Button FontFamily="Segoe MDL2 Assets" Content="&#xE8DE;"
+                    Width="50" Height="50" Background="Transparent"/>
+                    </StackPanel>
+<!--Display email properties-->
+                    <TextBlock Text="{Binding Sender}" FontSize="24"/>
+                    <TextBlock Text="{Binding Date}" FontSize="12"/>
+                    <TextBlock Text="{Binding Time}" FontSize="12"/>
+                    <TextBlock Text="{Binding Subject}" FontSize="18" Margin="0,10"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <TextBlock Text="{Binding Body}" FontSize="18" TextWrapping="WrapWholeWords" Margin="0,5,15,0"/>
+                    </ScrollViewer>
+<!--Menu Items for email navigation-->
+                    <StackPanel x:Name="ListMenuStack" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button x:Name="PrevButton" FontFamily="Segoe MDL2 Assets" Content="&#xE892;"
+                    Width="50" Height="50" Background="Transparent" Click="PrevButton_Click" />
+                        <TextBlock Text="Prev" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <TextBlock Text="Next" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                        <Button x:Name="NextButton" FontFamily="Segoe MDL2 Assets" Content="&#xE893;"
+                    Width="50" Height="50" Background="Transparent" Click="NextButton_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </SplitView.Content>
+    </SplitView>
+</Page>
